@@ -2,16 +2,14 @@
 import wiseSaying.entity.WiseSaying;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        Map<Integer, WiseSaying> map = new HashMap<>();
+        List<WiseSaying> wiseSayingList = new LinkedList<>();
         System.out.println("== 명언 앱 ==");
-        int count = 0;
+        int lastIndex = 0;
 
         while (true) {
             System.out.print("명령) ");
@@ -24,41 +22,49 @@ public class App {
                 String content = sc.nextLine();
                 System.out.print("작가 : ");
                 String author = sc.nextLine();
-                count++;
-                map.put(count, new WiseSaying(count, content, author));
-                System.out.println(count + "번 명언이 등록되었습니다.");
+                lastIndex += 1;
+                wiseSayingList.add(new WiseSaying(lastIndex, content, author));
+                System.out.println(lastIndex + "번 명언이 등록되었습니다.");
             }
             if (input.equals("목록")) {
-                for (int i = count; i > 0; i--) {
-                    if (!map.containsKey(i)) {
-                        continue;
-                    }
-                    System.out.println(i + " / " + map.get(i).getAuthor() + " / " + map.get(i).getContent());
-
+                for (WiseSaying wiseSaying : wiseSayingList) {
+                    System.out.println(wiseSaying.getId() + " / " + wiseSaying.getAuthor() + " / " + wiseSaying.getContent());
                 }
             }
 
             if (input.contains("삭제")) {
                 String s = input.substring(6);
                 int id = Integer.parseInt(s);
-                if (!map.containsKey(id)) {
+                int removeCount = 0;
+                for (WiseSaying wiseSaying : wiseSayingList) {
+                    if (wiseSaying.getId() == id) {
+                        wiseSayingList.remove(wiseSaying);
+                        removeCount++;
+                        System.out.println(id + "번 명언이 삭제되었습니다.");
+                        break;
+                    }
+                }
+
+                if (removeCount == 0) {
                     System.out.println(id + "번 명언은 존재하지 않습니다.");
-                } else {
-                    map.remove(id);
-                    System.out.println(id + "번 명언이 삭제되었습니다.");
                 }
             }
 
             if (input.contains("수정")) {
                 String s = input.substring(6);
                 int id = Integer.parseInt(s);
-                System.out.println("명언(기존) : " + map.get(id).getContent());
-                System.out.print("명언 : ");
-                String content = sc.nextLine();
-                System.out.println("작가(기존) : " + map.get(id).getAuthor());
-                System.out.print("작가 : ");
-                String author = sc.nextLine();
-                map.put(id, new WiseSaying(id, content, author));
+                for (int i = 0; i<wiseSayingList.size(); i++) {
+                    if (wiseSayingList.get(i).getId() == id) {
+                        System.out.println("명언(기존) : " + wiseSayingList.get(i).getContent());
+                        System.out.print("명언 : ");
+                        String content = sc.nextLine();
+                        System.out.println("작가(기존) : " + wiseSayingList.get(i).getAuthor());
+                        System.out.print("작가 : ");
+                        String author = sc.nextLine();
+                        wiseSayingList.set(i, new WiseSaying(id, content, author));
+                        break;
+                    }
+                }
             }
 
 
