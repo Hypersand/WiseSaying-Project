@@ -1,4 +1,5 @@
 
+import system.controller.SystemController;
 import wiseSaying.entity.WiseSaying;
 
 import java.io.IOException;
@@ -6,6 +7,7 @@ import java.util.*;
 
 public class App {
     public static void main(String[] args) throws IOException {
+        SystemController systemController = new SystemController();
         Scanner sc = new Scanner(System.in);
         List<WiseSaying> wiseSayingList = new LinkedList<>();
         System.out.println("== 명언 앱 ==");
@@ -15,7 +17,7 @@ public class App {
             System.out.print("명령) ");
             String input = sc.nextLine();
             if (input.equals("종료")) {
-                return;
+                systemController.exit();
             }
             if (input.equals("등록")) {
                 System.out.print("명언 : ");
