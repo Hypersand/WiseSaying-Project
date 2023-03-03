@@ -2,8 +2,10 @@ package com.ll.wiseSaying.controller;
 
 import com.ll.Container;
 import com.ll.wiseSaying.entity.WiseSaying;
+
 import java.util.ArrayList;
 import java.util.List;
+
 public class WiseSayingController {
 
     private int lastIndex = 0;
@@ -48,7 +50,7 @@ public class WiseSayingController {
 
     public void update(int id) {
 
-        for (int i = 0; i<wiseSayingList.size(); i++) {
+        for (int i = 0; i < wiseSayingList.size(); i++) {
             if (wiseSayingList.get(i).getId() == id) {
                 System.out.println("명언(기존) : " + wiseSayingList.get(i).getContent());
                 System.out.print("명언 : ");
