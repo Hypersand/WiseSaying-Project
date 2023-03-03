@@ -5,22 +5,21 @@ import com.ll.wiseSaying.controller.WiseSayingController;
 
 public class App {
 
-    public static void main(String[] args) {
+    public void Run() {
 
         SystemController systemController = new SystemController();
         WiseSayingController wiseSayingController = new WiseSayingController();
 
 
         System.out.println("== 명언 앱 ==");
-        Container.init();
 
         while (true) {
             System.out.print("명령) ");
             String input = Container.getScanner().nextLine();
 
             if (input.equals("종료")) {
-                Container.close();
                 systemController.exit();
+                return;
             }
             if (input.equals("등록")) {
                 wiseSayingController.write();
