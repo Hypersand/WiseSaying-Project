@@ -1,27 +1,25 @@
+package com.ll;
 
-import system.controller.SystemController;
-import wiseSaying.controller.WiseSayingController;
-import wiseSaying.entity.WiseSaying;
-
-import java.io.IOException;
-import java.util.*;
+import com.ll.system.controller.SystemController;
+import com.ll.wiseSaying.controller.WiseSayingController;
 
 public class App {
 
-    private static Scanner sc = new Scanner(System.in);
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         SystemController systemController = new SystemController();
-        WiseSayingController wiseSayingController = new WiseSayingController(sc);
+        WiseSayingController wiseSayingController = new WiseSayingController();
 
 
         System.out.println("== 명언 앱 ==");
+        Container.init();
 
         while (true) {
             System.out.print("명령) ");
-            String input = sc.nextLine();
+            String input = Container.getScanner().nextLine();
 
             if (input.equals("종료")) {
+                Container.close();
                 systemController.exit();
             }
             if (input.equals("등록")) {
@@ -44,5 +42,6 @@ public class App {
             }
 
         }
+
     }
 }

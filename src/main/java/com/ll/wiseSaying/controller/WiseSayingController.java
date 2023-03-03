@@ -1,28 +1,24 @@
-package wiseSaying.controller;
+package com.ll.wiseSaying.controller;
 
-import wiseSaying.entity.WiseSaying;
-
+import com.ll.Container;
+import com.ll.wiseSaying.entity.WiseSaying;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 public class WiseSayingController {
 
-    private Scanner sc;
     private int lastIndex = 0;
     private List<WiseSaying> wiseSayingList;
 
-    public WiseSayingController(Scanner sc) {
-        this.sc = sc;
+    public WiseSayingController() {
         lastIndex = 0;
         wiseSayingList = new ArrayList<>();
     }
 
     public void write() {
         System.out.print("명언 : ");
-        String content = sc.nextLine();
+        String content = Container.getScanner().nextLine();
         System.out.print("작가 : ");
-        String author = sc.nextLine();
+        String author = Container.getScanner().nextLine();
         lastIndex += 1;
         wiseSayingList.add(new WiseSaying(lastIndex, content, author));
         System.out.println(lastIndex + "번 명언이 등록되었습니다.");
@@ -56,10 +52,10 @@ public class WiseSayingController {
             if (wiseSayingList.get(i).getId() == id) {
                 System.out.println("명언(기존) : " + wiseSayingList.get(i).getContent());
                 System.out.print("명언 : ");
-                String content = sc.nextLine();
+                String content = Container.getScanner().nextLine();
                 System.out.println("작가(기존) : " + wiseSayingList.get(i).getAuthor());
                 System.out.print("작가 : ");
-                String author = sc.nextLine();
+                String author = Container.getScanner().nextLine();
                 wiseSayingList.set(i, new WiseSaying(id, content, author));
                 break;
             }
