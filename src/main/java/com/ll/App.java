@@ -3,8 +3,6 @@ package com.ll;
 import com.ll.system.controller.SystemController;
 import com.ll.wiseSaying.controller.WiseSayingController;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class App {
 
@@ -14,11 +12,13 @@ public class App {
         WiseSayingController wiseSayingController = new WiseSayingController();
 
 
+
         System.out.println("== 명언 앱 ==");
 
         while (true) {
             System.out.print("명령) ");
             String input = Container.getScanner().nextLine();
+            Request request = new Request(input);
 
 
             if (input.equals("종료")) {
@@ -34,29 +34,15 @@ public class App {
                 continue;
             }
 
+            int id = Integer.parseInt(request.getParamMap().get("id"));
 
-            String[] inputs = input.split("\\?");
-            String actionCode = inputs[0];
-            Map<String, String> paramMap = new HashMap<>();
-            String[] params = inputs[1].split("&");
-
-            if (actionCode.equals("삭제")) {
-                for (String param : params) {
-                    String[] str = param.split("=");
-                    paramMap.put(str[0], str[1]);
-                    wiseSayingController.remove(Integer.parseInt(str[1]));
-                }
-
+            if (request.getActionCode().equals("삭제")) {
+                wiseSayingController.remove(id);
                 continue;
             }
 
-            if (actionCode.equals("수정")) {
-                for (String param : params) {
-                    String[] str = param.split("=");
-                    paramMap.put(str[0], str[1]);
-                    wiseSayingController.update((Integer.parseInt(str[1])));
-                }
-
+            if (request.getActionCode().equals("수정")) {
+                wiseSayingController.update(id);
             }
 
         }
