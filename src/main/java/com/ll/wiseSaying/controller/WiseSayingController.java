@@ -42,17 +42,13 @@ public class WiseSayingController {
             return;
         }
 
-        for (WiseSaying wiseSaying : wiseSayingList) {
-            if (wiseSaying.getId() == id) {
-                wiseSayingList.remove(wiseSaying);
-                removeCount++;
-                System.out.println(id + "번 명언이 삭제되었습니다.");
-                break;
-            }
-        }
-
-        if (removeCount == 0) {
+        WiseSaying wiseSaying = findById(id);
+        if (wiseSaying == null) {
             System.out.println(id + "번 명언은 존재하지 않습니다.");
+        }
+        else {
+            wiseSayingList.remove(wiseSaying);
+            System.out.println(id + "번 명언이 삭제되었습니다.");
         }
     }
 
@@ -64,18 +60,28 @@ public class WiseSayingController {
             return;
         }
 
-        for (int i = 0; i < wiseSayingList.size(); i++) {
-            if (wiseSayingList.get(i).getId() == id) {
-                System.out.println("명언(기존) : " + wiseSayingList.get(i).getContent());
-                System.out.print("명언 : ");
-                String content = Container.getScanner().nextLine();
-                System.out.println("작가(기존) : " + wiseSayingList.get(i).getAuthor());
-                System.out.print("작가 : ");
-                String author = Container.getScanner().nextLine();
-                wiseSayingList.set(i, new WiseSaying(id, content, author));
-                break;
+        WiseSaying wiseSaying = findById(id);
+        if (wiseSaying == null) {
+            System.out.println(id + "번 명언은 존재하지 않습니다.");
+            return;
+        }
+        System.out.println("명언(기존) : " + wiseSaying.getContent());
+        System.out.print("명언 : ");
+        String content = Container.getScanner().nextLine();
+        System.out.println("작가(기존) : " + wiseSaying.getAuthor());
+        System.out.print("작가 : ");
+        String author = Container.getScanner().nextLine();
+        wiseSaying.setContent(content);
+        wiseSaying.setAuthor(author);
+    }
+
+    private WiseSaying findById(int id) {
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            if (wiseSaying.getId() == id) {
+                return wiseSaying;
             }
         }
+        return null;
     }
 
 }
