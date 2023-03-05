@@ -34,15 +34,13 @@ public class App {
                 continue;
             }
 
-            int id = Integer.parseInt(request.getParamMap().get("id"));
-
             if (request.getActionCode().equals("삭제")) {
-                wiseSayingController.remove(id);
+                wiseSayingController.remove(request);
                 continue;
             }
 
             if (request.getActionCode().equals("수정")) {
-                wiseSayingController.update(id);
+                wiseSayingController.update(request);
             }
 
         }

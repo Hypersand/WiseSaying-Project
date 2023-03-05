@@ -1,6 +1,7 @@
 package com.ll.wiseSaying.controller;
 
 import com.ll.Container;
+import com.ll.Request;
 import com.ll.wiseSaying.entity.WiseSaying;
 
 import java.util.ArrayList;
@@ -32,8 +33,9 @@ public class WiseSayingController {
         }
     }
 
-    public void remove(int id) {
+    public void remove(Request request) {
         int removeCount = 0;
+        int id = Integer.parseInt(request.getParamMap().get("id"));
         for (WiseSaying wiseSaying : wiseSayingList) {
             if (wiseSaying.getId() == id) {
                 wiseSayingList.remove(wiseSaying);
@@ -48,7 +50,8 @@ public class WiseSayingController {
         }
     }
 
-    public void update(int id) {
+    public void update(Request request) {
+        int id = Integer.parseInt(request.getParamMap().get("id"));
 
         for (int i = 0; i < wiseSayingList.size(); i++) {
             if (wiseSayingList.get(i).getId() == id) {
