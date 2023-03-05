@@ -27,7 +27,17 @@ public class Request {
         return actionCode;
     }
 
-    public Map<String, String> getParamMap() {
-        return paramMap;
+    public String getParam(String name) {
+        return paramMap.get(name);
     }
+
+    public int getIntParam(String name, int defaultValue) {
+        try {
+            return Integer.parseInt(getParam(name));
+        } catch (NumberFormatException e) {
+
+        }
+        return defaultValue;
+    }
+
 }

@@ -35,7 +35,13 @@ public class WiseSayingController {
 
     public void remove(Request request) {
         int removeCount = 0;
-        int id = Integer.parseInt(request.getParamMap().get("id"));
+        int id = request.getIntParam("id", -1);
+
+        if (id == -1) {
+            System.out.println("id(정수)를 입력해주세요.");
+            return;
+        }
+
         for (WiseSaying wiseSaying : wiseSayingList) {
             if (wiseSaying.getId() == id) {
                 wiseSayingList.remove(wiseSaying);
@@ -51,7 +57,12 @@ public class WiseSayingController {
     }
 
     public void update(Request request) {
-        int id = Integer.parseInt(request.getParamMap().get("id"));
+        int id = request.getIntParam("id", -1);
+
+        if (id == -1) {
+            System.out.println("id(정수)를 입력해주세요.");
+            return;
+        }
 
         for (int i = 0; i < wiseSayingList.size(); i++) {
             if (wiseSayingList.get(i).getId() == id) {
