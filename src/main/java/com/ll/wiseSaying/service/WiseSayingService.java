@@ -1,49 +1,40 @@
 package com.ll.wiseSaying.service;
 
 import com.ll.wiseSaying.entity.WiseSaying;
+import com.ll.wiseSaying.repository.WiseSayingRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WiseSayingService {
 
-    private int lastIndex = 0;
-    private List<WiseSaying> wiseSayingList;
+    private final WiseSayingRepository wiseSayingRepository;
 
     public WiseSayingService() {
-        lastIndex = 0;
-        wiseSayingList = new ArrayList<>();
+        wiseSayingRepository = new WiseSayingRepository();
     }
 
+
     public WiseSaying findById(int id) {
-        for (WiseSaying wiseSaying : wiseSayingList) {
-            if (wiseSaying.getId() == id) {
-                return wiseSaying;
-            }
-        }
-        return null;
+        WiseSaying wiseSaying = wiseSayingRepository.findById(id);
+        return wiseSaying;
     }
 
     public List<WiseSaying> findAll() {
-        return wiseSayingList;
+        return wiseSayingRepository.findAll();
     }
 
 
     public int write(String content, String author) {
-        lastIndex++;
-        WiseSaying wiseSaying = new WiseSaying(lastIndex, content, author);
-        wiseSayingList.add(wiseSaying);
-
-        return lastIndex;
+        return wiseSayingRepository.write(content, author);
     }
 
     public void remove(WiseSaying wiseSaying) {
-        wiseSayingList.remove(wiseSaying);
+        wiseSayingRepository.remove(wiseSaying);
     }
 
     public void update(WiseSaying wiseSaying, String content, String author) {
-        wiseSaying.setContent(content);
-        wiseSaying.setAuthor(author);
+        wiseSayingRepository.update(wiseSaying,content,author);
     }
 
 
